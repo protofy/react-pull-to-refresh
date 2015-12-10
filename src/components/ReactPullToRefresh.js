@@ -24,7 +24,8 @@ export default class ReactPullToRefresh extends Component {
         ptrEl: this.refs.ptr,
         distanceToRefresh: this.props.distanceToRefresh || undefined,
         loadingFunction: this.handleRefresh,
-        resistance: this.props.resistance || undefined
+        resistance: this.props.resistance || undefined,
+        scrollContainer: this.props.scrollContainerClass ? document.getElementsByClassName(this.props.scrollContainerClass)[0] : null
       });
       this.setState({
         initialized: true

@@ -56,14 +56,15 @@ export default function WebPullToRefresh() {
 			ptrEl: params.ptrEl || document.getElementById( defaults.ptrEl ),
 			distanceToRefresh: params.distanceToRefresh || defaults.distanceToRefresh,
 			loadingFunction: params.loadingFunction || defaults.loadingFunction,
-			resistance: params.resistance || defaults.resistance
+			resistance: params.resistance || defaults.resistance,
+			scrollContainer: params.scrollContainer || null
 		};
 
 		if ( ! options.contentEl || ! options.ptrEl ) {
 			return false;
 		}
 
-		var h = new Hammer( options.contentEl );
+		var h = new Hammer( options.contentEl, { touchAction: 'auto' } );
 
 		h.get( 'pan' ).set( { direction: Hammer.DIRECTION_VERTICAL } );
 
@@ -79,7 +80,7 @@ export default function WebPullToRefresh() {
 	 * @param {object} e - Event object
 	 */
 	var _panStart = function(e) {
-		pan.startingPositionY = document.body.scrollTop;
+		pan.startingPositionY = (options.scrollContainer || document.body).scrollTop;
 
 		if ( pan.startingPositionY === 0 ) {
 			pan.enabled = true;
